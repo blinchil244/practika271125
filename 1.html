@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Үздік ойындар 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;font-family:'Montserrat Alternates',sans-serif;background:linear-gradient(135deg,#990036,#000,#b30056);color:#fff;display:flex;flex-direction:column;align-items:center;padding-top:130px;overflow-x:hidden;transition:background .5s,color .5s }
+  body.dark{background:#0a0a0a;color:#eee}
+  h1,h2{font-size:56px;text-align:center;margin:30px 0;background:linear-gradient(90deg,#ff004c,#ff66cc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;transition:.5s}
+  h2{font-size:48px}
+  .top-menu{position:fixed;top:0;left:0;width:100%;padding:15px 0;backdrop-filter:blur(12px);display:flex;justify-content:center;gap:25px;z-index:1000}
+  .top-menu a,.top-menu button{color:#fff;text-decoration:none;font-weight:700;padding:12px 24px;border-radius:15px;background:linear-gradient(135deg,#ff004c,#ff3399);border:none;cursor:pointer;transition:.4s}
+  .top-menu a:hover,.top-menu button:hover{transform:scale(1.1);background:linear-gradient(135deg,#ff3399,#ff66cc)}
+  #darkToggle.active{background:#00ff88;color:#000}
+  .section{background:rgba(20,20,20,.9);border:2px solid #ff004c;border-radius:30px;padding:40px;width:85%;max-width:1000px;margin:50px auto;box-shadow:0 0 40px rgba(255,0,76,.6);transition:all .5s}
+  body.dark .section{border-color:#00ff88;box-shadow:0 0 40px rgba(0,255,136,.5)}
+   .game{
+    margin:30px 0;padding:20px;background:rgba(255,255,255,.05);
+    border-radius:20px;transition:.4s;border:1px solid transparent;
+  }
+  .game:hover{border-color:var(--pink);transform:translateY(-5px);box-shadow:0 10px 30px rgba(255,51,153,.4)}
+  .game a{color:#ff66cc;font-size:27px;font-weight:800;text-decoration:none}
+  .game a:hover{color:#ff99dd;text-decoration:underline}
+  .game p{margin-top:8px;font-size:19px;opacity:.9}
+
+  .genre-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:32px;margin-top:30px}
+  .genre-card{position:relative;display:flex;justify-content:space-between;align-items:center;padding:28px 34px;background:rgba(255,255,255,.07);border:1px solid #ff3399;border-radius:22px;transition:.4s}
+  .genre-card:hover{background:rgba(255,51,153,.18);transform:translateY(-8px);box-shadow:0 12px 30px rgba(255,51,153,.5)}
+  .genre-text{flex:1;font-size:19px;font-weight:600}
+  
+  /* ОБЩАЯ КНОПКА MORE */
+  .more-btn{
+    background:linear-gradient(135deg,#ff3399,#ff66cc);color:#fff;font-weight:700;
+    font-size:18px;padding:12px 28px;border:none;border-radius:50px;cursor:pointer;
+    box-shadow:0 8px 20px rgba(255,51,153,.4);transition:all .4s;
+  }
+  .more-btn:hover{
+    transform:translateY(-4px) scale(1.05);
+    background:linear-gradient(135deg,#ff66cc,#ff99dd);
+    box-shadow:0 12px 30px rgba(255,51,153,.6);
+  }
+  body.dark .more-btn{
+    background:linear-gradient(135deg,#00ff88,#00cc77);
+    box-shadow:0 8px 20px rgba(0,255,136,.4);
+  }
+  body.dark .more-btn:hover{
+    background:linear-gradient(135deg,#00cc77,#00ffaa);
+    box-shadow:0 12px 30px rgba(0,255,136,.7);
+  }
+
+  /* КНОПКА В #games — БОЛЬШАЯ ПО ЦЕНТРУ */
+  #games .more-btn{
+    margin:30px auto 10px;display:block;width:280px;
+    font-size:20px;padding:16px 32px;
+    box-shadow:0 10px 30px rgba(255,51,153,.5);
+  }
+  #games .more-btn:hover{
+    transform:scale(1.08);
+  }
+
+  /* РЕЙТИНГ */
+  .rating-cards{display:flex;flex-wrap:wrap;gap:28px;justify-content:center;margin-top:30px}
+  .card{background:rgba(255,255,255,.08);border:1px solid #ff3399;border-radius:22px;padding:22px;width:220px;text-align:center;transition:.4s}
+  .card:hover{transform:translateY(-10px) scale(1.05);box-shadow:0 15px 35px rgba(255,51,153,.6)}
+  .card .name a{color:#ff66cc;font-size:20px;font-weight:800;text-decoration:none}
+  .bar{height:14px;background:#333;border-radius:8px;overflow:hidden;margin:12px 0}
+  .fill{height:100%;background:linear-gradient(90deg,#ff004c,#ff66cc);border-radius:8px}
+
+  /* СТАРАЯ МОДАЛКА (для жанров) */
+  .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.94);justify-content:center;align-items:center;z-index:2000;padding:20px}
+  .modal.active{display:flex}
+  .modal-content{background:rgba(20,20,20,.97);padding:50px 40px;border-radius:30px;max-width:700px;width:90%;box-shadow:0 0 80px #ff3399;position:relative}
+  .close{position:absolute;top:15px;right:25px;font-size:42px;color:#ff3399;cursor:pointer;transition:.3s}
+  .close:hover{transform:rotate(90deg);color:#ff66cc}
+
+  /* ФОНОВОЕ ВИДЕО */
+  video{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:.22}
+
+  /* НОВАЯ МОДАЛКА ДЛЯ ТОПА ИГР — ПОЛНОСТЬЮ С DARK MODE */
+  #topgames-toggle{position:absolute;opacity:0;width:0;height:0}
+  .topgames-details{
+    position:fixed;inset:0;background:rgba(0,0,0,.96);backdrop-filter:blur(25px);
+    z-index:9999;display:flex;align-items:center;justify-content:center;
+    opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s;padding:20px;overflow-y:auto;
+  }
+  #topgames-toggle:checked ~ .topgames-details{
+    opacity:1;visibility:visible;
+  }
+  .topgames-content{
+    background:rgba(20,20,20,.97);border:3px solid #ff3399;border-radius:35px;
+    padding:60px 70px;max-width:950px;width:94%;box-shadow:0 0 90px rgba(255,51,153,.8);
+    position:relative;color:#fff;font-size:20px;line-height:2;transition:all .5s;
+  }
+  .topgames-content h2{
+    color:#ff66cc;font-size:48px;margin-bottom:30px;transition:color .5s;
+  }
+  .close-topgames{
+    position:absolute;top:25px;right:35px;font-size:55px;color:#ff3399;
+    cursor:pointer;transition:transform .3s,color .5s;z-index:10;
+  }
+  .close-topgames:hover{transform:rotate(90deg);color:#ff66cc}
+
+  /* DARK MODE ДЛЯ НОВОЙ МОДАЛКИ */
+  body.dark .topgames-content{
+    border-color:#00ff88;
+    box-shadow:0 0 90px rgba(0,255,136,.7);
+  }
+  body.dark .topgames-content h2{color:#00ffaa}
+  body.dark .close-topgames{color:#00ff88}
+  body.dark .close-topgames:hover{color:#00ffaa}
+  #topgames-toggle ~ .topgames-details {
+  display: none; /* по умолчанию скрыт или виден */
+}
+
+#topgames-toggle:checked ~ .topgames-details {
+  display: block;
+}
+/* ИДЕАЛЬНЫЙ ЦЕНТР ДЛЯ МОДАЛКИ С МНОГО КОНТЕНТА */
+.topgames-details {
+  align-items: flex-start !important;        /* ← важно! */
+  padding: 5vh 20px;                       /* отступы сверху/снизу */
+}
+
+.topgames-content {
+  margin: auto;                            /* магия центрирования */
+  max-height: 90vh;                        /* не вылезает за экран */
+  overflow-y: auto;                        /* скролл внутри, если много текста */
+  width: 94%;
+  max-width: 950px;
+}
+
+/* Красивый скролл внутри модалки (необязательно, но огонь) */
+.topgames-content::-webkit-scrollbar {
+  width: 10px;
+}
+.topgames-content::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.3);
+  border-radius: 10px;
+}
+.topgames-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(#ff3399, #ff66cc);
+  border-radius: 10px;
+}
+body.dark .topgames-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(#00ff88, #00cc77);
+}
+<style>
+  /* АНИМАЦИЯ ЗАГОЛОВКОВ — ОГОНЬ 2025 */
+  .glitch-title{
+    font-size:62px !important;
+    font-weight:900;
+    text-align:center;
+    margin:50px 0;
+    background:linear-gradient(90deg,#ff004c,#ff66cc,#00ff88,#ff3399);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-size:300% 300%;
+    animation:gradient 8s ease infinite, glow 2s ease-in-out infinite;
+    position:relative;
+    text-transform:uppercase;
+    letter-spacing:4px;
+  }
+  .glitch-title::before,
+  .glitch-title::after{
+    content:attr(data-text);
+    position:absolute;
+    top:0; left:0; width:100%; height:100%;
+  }
+  .glitch-title::before{
+    animation:glitch1 0.8s infinite;
+    clip-path:polygon(0 0,100% 0,100% 35%,0 60%);
+    color:#ff3399;
+    text-shadow:4px 0 #00ff88;
+  }
+  .glitch-title::after{
+    animation:glitch2 0.8s infinite;
+    clip-path:polygon(0 65%,100% 40%,100% 100%,0 100%);
+    color:#00ff88;
+    text-shadow:-4px 0 #ff3399;
+  }
+
+  /* Дополнительные эффекты */
+  .glitch-title.neon{
+    text-shadow:
+      0 0 10px #ff66cc,
+      0 0 20px #ff66cc,
+      0 0 40px #ff3399,
+      0 0 80px #ff3399;
+    animation:neonPulse 3s infinite;
+  }
+  .glitch-title.fire{
+    background:linear-gradient(90deg,#ff004c,#ff3300,#ffaa00,#ff6600);
+    -webkit-background-clip:text;
+    animation:fire 6s ease infinite, glowFire 1.5s infinite;
+  }
+
+  @keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  @keyframes glow{0%,100%{text-shadow:0 0 20px #ff3399}50%{text-shadow:0 0 60px #ff66cc,0 0 100px #ff3399}}
+  @keyframes glitch1{0%,100%{transform:translate(0)}2%,98%{transform:translate(-2px,2px)}4%,96%{transform:translate(2px,-2px)}}
+  @keyframes glitch2{0%,100%{transform:translate(0)}3%,97%{transform:translate(2px,-2px)}5%,95%{transform:translate(-2px,2px)}}
+  @keyframes neonPulse{0%,100%{text-shadow:0 0 10px #ff66cc}50%{text-shadow:0 0 60px #ff3399,0 0 120px #ff3399}}
+  @keyframes glowFire{0%,100%{text-shadow:0 0 20px #ff3300}50%{text-shadow:0 0 80px #ff6600,0 0 120px #ff0000}}
+  @keyframes fire{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+
+  /* Появление при загрузке */
+  .glitch-title{
+    opacity:0;
+    animation:appear 1.5s forwards, gradient 8s ease infinite;
+  }
+  .glitch-title:nth-child(1){animation-delay:0.3s}
+  .glitch-title:nth-child(2){animation-delay:0.6s}
+  .glitch-title:nth-child(3){animation-delay:0.9s}
+  @keyframes appear{
+    to{opacity:1; transform:translateY(0)}
+  }
+  <style>
+  .animated-title {
+    font-size: 62px;
+    font-weight: 900;
+    text-align: center;
+    margin: 60px 0 40px;
+    background: linear-gradient(90deg, #ff004c, #ff66cc, #00ff88, #ff3399);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: titleFadeIn 1.8s ease-out forwards;
+    position: relative;
+  }
+
+  .animated-title::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    width: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #ff66cc, transparent);
+    border-radius: 2px;
+    animation: lineExpand 2s ease-out 0.6s forwards;
+    transform: translateX(-50%);
+  }
+
+  .animated-title.subtle {
+    font-size: 48px;
+    background: linear-gradient(90deg, #ff66cc, #ff99dd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation-delay: 0.4s;
+  }
+
+  .animated-title.glow {
+    background: linear-gradient(90deg, #ff3300, #ff6600, #ffaa00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 40px rgba(255, 102, 102, 0.6);
+    animation: titleFadeIn 2s ease-out 0.8s forwards, pulseGlow 4s infinite 2.5s;
+  }
+
+  @keyframes titleFadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes lineExpand {
+    to {
+      width: 180px;
+    }
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { text-shadow: 0 0 40px rgba(255, 102, 102, 0.6); }
+    50% { text-shadow: 0 0 80px rgba(255, 80, 80, 0.9), 0 0 120px rgba(255, 51, 153, 0.7); }
+  }
+
+  /* Лёгкое дыхание градиента */
+  .animated-title {
+    background-position: 0% 50%;
+    animation: titleFadeIn 1.8s ease-out forwards, gradientFlow 12s ease infinite;
+  }
+
+  @keyframes gradientFlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+</style>
+</style>
+
+</head>
+<body>
+
+<video autoplay muted loop playsinline>
+  <source src="From KlickPin CF Pin by ايه on منشورات من خلالك _ Overlays instagram Free green screen backgrounds Film textureايه avatar link.mp4" type="video/mp4">
+</video>
+
+<div class="top-menu">
+  <a href="#games">Ойындар</a>
+  <a href="#genres">Жанрлар</a>
+  <a href="#rating">Рейтинг</a>
+  <button id="darkToggle">Dark Mode</button>
+</div>
+
+<h1 class="animated-title">ҮЗДІК ОЙЫНДАР 2025</h1>
+<div class="section" id="games">
+  <input type="checkbox" id="topgames-toggle">
+
+  <div class="game"><a href="https://store.steampowered.com/app/292030/" target="_blank">The Witcher 3: Wild Hunt</a><p>RPG • 9.9/10 • <a style="color: #00ff88;">≈ $39.99</a></p></div>
+  <div class="game"><a href="https://store.steampowered.com/app/1174180/" target="_blank">Red Dead Redemption 2</a><p>Open World • 9.8/10 •<a style="color: #00ff88;">≈  $59.99</a></p></div>
+  <div class="game"><a href="https://store.steampowered.com/app/271590/" target="_blank">GTA V</a><p>Action • 9.8/10 • <a style="color: #00ff88;">≈ $29.99-$59.99</a></p></div>
+  <div class="game"><a href="https://minecraft.net" target="_blank">Minecraft</a><p>Sandbox • 9.7/10 • <a style="color: #00ff88;">≈ $26.95</a></p></div>
+  <div class="game"><a href="https://store.steampowered.com/app/1086940/" target="_blank">Baldur's Gate 3</a><p>RPG • 9.7/10 • <a style="color: #00ff88;">≈ ≈ $59.99</a></p></div>
+  <div class="game"><a href="https://store.steampowered.com/app/1091500/" target="_blank">Cyberpunk 2077</a><p>RPG • 9.5/10 • <a style="color: #00ff88;">≈ $39.99</a></p></div>
+
+  <label for="topgames-toggle" class="more-btn">Толығырақ →</label>
+
+ <div class="topgames-details">
+  <div class="topgames-content">
+    <label for="topgames-toggle" class="close-topgames">×</label>
+    <h2 style="color:#ff66cc;font-size:48px;margin-bottom:30px;">2025 ЖЫЛДЫҢ ҮЗДІК 6 ОЙЫНЫ — НЕГЕ ОЛАР?</h2>
+
+    <!-- ИГРА 1 -->
+    <div class="game-audio-card">
+      <strong style="color:#ff66cc;font-size:24px;">1. The Witcher 3: Wild Hunt</strong>
+      <p>10 жылдан кейін де №1. 250+ марапат, 1000+ сағат сюжет, ең үздік RPG тарихта.</p>
+      <audio controls preload="metadata">
+        <source src="thewitcher3.mp3" type="audio/mp3">
+      </audio>
+    </div>
+
+    <!-- ИГРА 2 -->
+    <div class="game-audio-card">
+      <strong style="color:#ff66cc;font-size:24px;">2. Red Dead Redemption 2</strong>
+      <p>Ең әдемі ашық әлем. Аттары шынайы, кейіпкерлері тірі. 2025 жылы да теңдесі жоқ.</p>
+      <audio controls preload="metadata">
+        <source src="rdr2.mp3" type="audio/mp3">
+      </audio>
+    </div>
+
+    <!-- ИГРА 3 -->
+    <div class="game-audio-card">
+      <strong style="color:#ff66cc;font-size:24px;">3. GTA V</strong>
+      <p>200+ миллион сатылым. GTA VI шыққанша — әлі патша. Онлайн әлі өлген жоқ.</p>
+      <audio controls preload="metadata">
+        <source src="gta5.mp3" type="audio/mp3">
+      </audio>
+    </div>
+
+    <!-- ИГРА 4 -->
+    <div class="game-audio-card">
+      <strong style="color:#ff66cc;font-size:24px;">4. Minecraft</strong>
+      <p>Ең көп ойнаған ойын тарихта. 2025 жылы да 150+ млн ойыншы ай сайын.</p>
+      <audio controls preload="metadata">
+        <source src="minecraft.mp3" type="audio/mp3">
+      </audio>
+    </div>
+
+    <!-- ИГРА 5 -->
+    <div class="game-audio-card">
+      <strong style="color:#ff66cc;font-size:24px;">5. Baldur's Gate 3</strong>
+      <p>97/100 Metacritic. RPG жанрын қайта тудырды. 2024 жылдың үздігі.</p>
+      <audio controls preload="metadata">
+        <source src="bardurs.mp3" type="audio/mp3">
+      </audio>
+    </div>
+
+    <!-- ИГРА 6 -->
+    <div class="game-audio-card">
+      <strong style="color:#ff66cc;font-size:24px;">6. Cyberpunk 2077</strong>
+      <p>Phantom Liberty + Ultimate Edition = 95+ балл. Толық қайта оралған легенда.</p>
+      <audio controls preload="metadata">
+        <source src="cyberpunk 2077.mp3" type="audio/mp3">
+      </audio>
+    </div>
+
+ <!-- ИГРА 7 / КОРЫТЫНДЫ -->
+<div class="game-audio-card">
+  <strong style="color:#ff66cc;font-size:24px;">Қорытынды</strong>
+  <p>Бұл ойындар — мәңгілік классика. 2025 жылы да ешкім озып кете алмады.</p>
+  <audio controls preload="metadata">
+    <source src="korytyndy.mp3" type="audio/mp3">
+  </audio>
+</div>
+
+</div>
+
+<style>
+  .game-audio-card{
+    background:linear-gradient(135deg,rgba(255,51,153,.15),rgba(0,255,136,.1));
+    border:2px solid rgba(255,51,153,.5);
+    border-radius:20px;
+    padding:20px;
+    margin:25px 0;
+    backdrop-filter:blur(10px);
+    box-shadow:0 0 25px rgba(255,51,153,.3);
+    transition:all .4s;
+  }
+  body.dark .game-audio-card{
+    border-color:rgba(0,255,136,.6);
+    background:linear-gradient(135deg,rgba(0,255,136,.15),rgba(0,255,136,.08));
+    box-shadow:0 0 25px rgba(0,255,136,.4);
+  }
+  .game-audio-card strong{
+    display:block;margin-bottom:10px;
+  }
+  .game-audio-card p{
+    margin:12px 0 18px;
+    line-height:1.7;
+    font-size:18px;
+  }
+  .game-audio-card audio{
+    width:100%;
+    height:48px;
+    border-radius:12px;
+    outline:none;
+    background:rgba(0,0,0,.4);
+  }
+  .game-audio-card audio::-webkit-media-controls-panel{
+    background:linear-gradient(135deg,#ff3399,#ff66cc);
+    border-radius:12px;
+  }
+  body.dark .game-audio-card audio::-webkit-media-controls-panel{
+    background:linear-gradient(135deg,#00ff88,#00cc77);
+  }
+  
+</style>
+    </div>
+  </div>
+</div>
+
+<h2 class="animated-title subtle">Ойын жанрлары</h2>
+<div class="section" id="genres">
+  <div class="genre-grid">
+    <div class="genre-card" data-genre="RPG"><div class="genre-text">RPG — кейіпкерді дамыту, тапсырмалар, сюжет</div><button class="more-btn">Толығырақ →</button></div>
+    <div class="genre-card" data-genre="Shooter"><div class="genre-text">Shooter — қару, динамикалық шайқас</div><button class="more-btn">Толығырақ →</button></div>
+    <div class="genre-card" data-genre="Horror"><div class="genre-text">Horror — қорқынышты атмосфера</div><button class="more-btn">Толығырақ →</button></div>
+    <div class="genre-card" data-genre="Adventure"><div class="genre-text">Adventure — әлемді зерттеу</div><button class="more-btn">Толығырақ →</button></div>
+    <div class="genre-card" data-genre="Sandbox"><div class="genre-text">Sandbox — құру, еркіндік</div><button class="more-btn">Толығырақ →</button></div>
+    <div class="genre-card" data-genre="Strategy"><div class="genre-text">Strategy — тактика, ресурстар</div><button class="more-btn">Толығырақ →</button></div>
+    <div class="genre-card" data-genre="Racing"><div class="genre-text">Racing — жылдамдық, жарыс</div><button class="more-btn">Толығырақ →</button></div>
+    <div class="genre-card" data-genre="Simulation"><div class="genre-text">Simulation — өмір, техника</div><button class="more-btn">Толығырақ →</button></div>
+    <div class="genre-card" data-genre="Fighting"><div class="genre-text">Fighting — жекпе-жек</div><button class="more-btn">Толығырақ →</button></div>
+    <div class="genre-card" data-genre="Action"><div class="genre-text">Action — шайқас, ашық әлем</div><button class="more-btn">Толығырақ →</button></div>
+  </div>
+</div>
+
+<h1 class="animated-title glow">ТОП РЕЙТИНГ 2025</h1>
+<div class="section" id="rating">
+  <div class="rating-cards">
+    <div class="card"><div class="name"><a href="https://youtu.be/k08RRor_zPI" target="_blank">The Witcher 3</a></div><div class="bar"><div class="fill" style="width:99%"></div></div><b>9.9</b></div>
+    <div class="card"><div class="name"><a href="https://youtu.be/XsaXfkpKPNM" target="_blank">RDR 2</a></div><div class="bar"><div class="fill" style="width:98%"></div></div><b>9.8</b></div>
+    <div class="card"><div class="name"><a href="https://youtu.be/H_7XOMO7nJE" target="_blank">GTA V</a></div><div class="bar"><div class="fill" style="width:98%"></div></div><b>9.8</b></div>
+    <div class="card"><div class="name"><a href="https://youtu.be/UCxFhfQFaec" target="_blank">Baldur's Gate 3</a></div><div class="bar"><div class="fill" style="width:97%"></div></div><b>9.7</b></div>
+    <div class="card"><div class="name"><a href="https://youtu.be/MpdLIOVp-No" target="_blank">Minecraft</a></div><div class="bar"><div class="fill" style="width:97%"></div></div><b>9.7</b></div>
+    <div class="card"><div class="name"><a href="https://youtu.be/X9UKt_qtzvc" target="_blank">Cyberpunk 2077</a></div><div class="bar"><div class="fill" style="width:95%"></div></div><b>9.5</b></div>
+  </div>
+</div>
+
+<!-- Модальное окно -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close">×</span>
+    <h2 id="modalTitle" style="color:#ff66cc;margin-bottom:20px"></h2>
+    <div id="modalList" style="font-size:19px;line-height:2.3"></div>
+  </div>
+</div>
+
+<script>
+document.getElementById('darkToggle').onclick=()=>{document.body.classList.toggle('dark');document.getElementById('darkToggle').classList.toggle('active')};
+
+const genres={
+  RPG:[["The Witcher 3","https://store.steampowered.com/app/292030/"],["Cyberpunk 2077","https://store.steampowered.com/app/1091500/"],["Skyrim","https://store.steampowered.com/app/489830/"],["Baldur's Gate 3","https://store.steampowered.com/app/1086940/"],["Dragon Age: The Veilguard","https://store.steampowered.com/app/1845910/"]],
+  Shooter:[["CS2","https://store.steampowered.com/app/730/"],["Valorant","https://playvalorant.com/"],["DOOM Eternal","https://store.steampowered.com/app/782330/"],["Metro Exodus","https://store.steampowered.com/app/412020/"]],
+  Horror:[["Outlast","https://store.steampowered.com/app/241760/"],["Resident Evil Village","https://store.steampowered.com/app/1196590/"],["Dead Space","https://store.steampowered.com/app/1693980/"],["Silent Hill 2","https://store.steampowered.com/app/2124490/"]],
+  Adventure:[["The Last of Us","https://store.steampowered.com/app/1888930/"],["Uncharted","https://store.steampowered.com/app/1659420/"],["Tomb Raider","https://store.steampowered.com/app/750920/"]],
+  Sandbox:[["Minecraft","https://minecraft.net"],["Terraria","https://store.steampowered.com/app/105600/"],["No Man's Sky","https://store.steampowered.com/app/275850/"]],
+  Strategy:[["Civilization VI","https://store.steampowered.com/app/289070/"],["StarCraft II","https://starcraft2.com/"],["Age of Empires IV","https://store.steampowered.com/app/1466860/"]],
+  Racing:[["Forza Horizon 5","https://store.steampowered.com/app/1551360/"],["Need for Speed","https://store.steampowered.com/app/1846380/"]],
+  Simulation:[["The Sims 4","https://store.steampowered.com/app/1222670/"],["MS Flight Simulator","https://store.steampowered.com/app/1250410/"]],
+  Fighting:[["Mortal Kombat 1","https://store.steampowered.com/app/1978650/"],["Tekken 8","https://store.steampowered.com/app/1778820/"]],
+  Action:[["GTA V","https://store.steampowered.com/app/271590/"],["RDR2","https://store.steampowered.com/app/1174180/"],["God of War","https://store.steampowered.com/app/1593500/"]]
+};
+
+document.querySelectorAll('.more-btn').forEach(btn=>{
+  btn.onclick=e=>{
+    e.stopPropagation();
+    const card=btn.parentElement;
+    const genre=card.dataset.genre;
+    document.getElementById('modalTitle').textContent=card.querySelector('.genre-text').textContent;
+    document.getElementById('modalList').innerHTML=genres[genre].map(g=>`<a href="${g[1]}" target="_blank" style="color:#ff66cc;text-decoration:none">• ${g[0]}</a>`).join('<br>');
+    document.getElementById('modal').classList.add('active');
+  };
+});
+
+document.querySelector('.close').onclick=()=>{document.getElementById('modal').classList.remove('active')};
+window.onclick=e=>{if(e.target.id==='modal') document.getElementById('modal').classList.remove('active')};
+</script>
+</body>
+</html>
